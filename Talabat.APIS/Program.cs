@@ -6,7 +6,7 @@ namespace Talabat.APIS
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -16,13 +16,32 @@ namespace Talabat.APIS
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddDbContext<StoreContext>(options=>
+            builder.Services.AddDbContext<StoreContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
             });
 
             var app = builder.Build();
+
+            using var scop = app.Services.CreateScope();
+
+            var Services = scop.ServiceProvider;
+            var _dbcontext = Services.GetRequiredService<StoreContext>();
+
+            var LoggerFactory = Services.GetRequiredService<ILoggerFactory>();
+            try
+            {
+                await _dbcontext.Database.MigrateAsync();     // update database
+                await StoreContextSeed.SeedAsync(_dbcontext);//Data seeding
+            }
+            catch (Exception ex)
+            {
+                var logger = LoggerFactory.CreateLogger<Program>();
+                logger.LogError(ex, "an error occurred during migration");
+
+            }
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
