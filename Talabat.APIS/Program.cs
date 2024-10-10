@@ -34,6 +34,7 @@ namespace Talabat.APIS
 
             using var scop = app.Services.CreateScope();
 
+
             var Services = scop.ServiceProvider;
             var _dbcontext = Services.GetRequiredService<StoreContext>();
 
