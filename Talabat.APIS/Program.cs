@@ -26,7 +26,7 @@ namespace Talabat.APIS
             });
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddAutoMapper(M => M.AddProfile(typeof(MappingProfiles)));
+            builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 
 
