@@ -1,6 +1,13 @@
 
+using Azure;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Talabat.APIS.Erorrs;
+using Talabat.APIS.Extensions;
 using Talabat.APIS.Helpers;
+using Talabat.APIS.MiddleWare;
 using Talabat.Core.Reposeitories.Contract;
 using Talabat.Repository;
 using Talabat.Repository.Data;
@@ -25,15 +32,12 @@ namespace Talabat.APIS
 
             });
 
-            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddAutoMapper(typeof(MappingProfiles));
+          
+            builder.Services.AddApplicationServices();
 
-
-
-            var app = builder.Build();
+             var app = builder.Build();
 
             using var scop = app.Services.CreateScope();
-
 
             var Services = scop.ServiceProvider;
             var _dbcontext = Services.GetRequiredService<StoreContext>();
@@ -53,12 +57,15 @@ namespace Talabat.APIS
 
 
             // Configure the HTTP request pipeline.
+            app.UseMiddleware<ExcptionMiddleWare>();
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
+            app.UseStatusCodePagesWithReExecute("/Errors/{0}");   
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
