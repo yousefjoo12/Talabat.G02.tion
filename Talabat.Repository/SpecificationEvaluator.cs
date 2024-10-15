@@ -27,14 +27,14 @@ namespace Talabat.Repository
                 // = _dbcontext.Set<Product>().Where(p=>p.Id == id).OrderBy(P=>P.Price)
 
             }
-            else
+            else if (spec.OrderByDecs is not null)
             {
                 query = query.OrderByDescending(spec.OrderByDecs);
                 // = _dbcontext.Set<Product>().Where(p=>p.Id == id).OrderByDescending(P=>P.Price)
 
             }
 
-            if (spec.IsPaginationEnabled == true)
+            if (spec.IsPaginationEnabled)
             {
                 query = query.Skip(spec.Skip).Take(spec.Take);
             }

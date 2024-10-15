@@ -13,9 +13,11 @@ namespace Talabat.Core.Specifications.ProductSpecifications
 
         //BrandId   = null = true
         //CategoryId = null = true
-
-        (!spec.brandId.HasValue || P.BrandId == spec.brandId.Value) &&
-        (!spec.categoryId.HasValue || P.CategoryId == spec.categoryId.Value)
+        //Search="Mocha"
+         
+        (string.IsNullOrEmpty(spec.Search) || P.Name.ToLower().Contains(spec.Search.ToLower())) &&
+        (!spec.BrandId.HasValue || P.BrandId == spec.BrandId.Value) &&
+        (!spec.CategoryId.HasValue || P.CategoryId == spec.CategoryId.Value)
            )
         {
 
@@ -50,7 +52,7 @@ namespace Talabat.Core.Specifications.ProductSpecifications
             //PageIndex= (3-1) * 4 = 8
             //skip = 8  and take = 4
 
-            ApplyPagination((spec.PageIndex - 1) * spec.PageSize,spec.PageSize);
+            ApplyPagination((spec.PageIndex - 1) * spec.PageSize, spec.PageSize);
 
         }
         public ProductWithBrandAndCategotySpecifications(int id) : base(P => P.Id == id)
