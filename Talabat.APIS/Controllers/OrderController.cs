@@ -13,7 +13,7 @@ namespace Talabat.APIS.Controllers
         private readonly IOrderService _orderService;
         private readonly IMapper _mapper;
 
-        public OrderController(IOrderService orderService , IMapper mapper)
+        public OrderController(IOrderService orderService, IMapper mapper)
         {
             _orderService = orderService;
             _mapper = mapper;
@@ -23,7 +23,7 @@ namespace Talabat.APIS.Controllers
         public async Task<ActionResult<Order>> CreateOrder(OrderDTO orderDTO)
         {
             var address = _mapper.Map<AddressDTO, Address>(orderDTO.ShippingAddress);
-          var order = await _orderService.CreateOrderAsync(orderDTO.BuyerEmail, orderDTO.BasketId, orderDTO.DeliveryMethodId, address);
+            var order = await _orderService.CreateOrderAsync(orderDTO.BuyerEmail, orderDTO.BasketId, orderDTO.DeliveryMethodId, address);
             if (order == null) return BadRequest(new ApiResponse(400));
             return Ok(order);
         }
