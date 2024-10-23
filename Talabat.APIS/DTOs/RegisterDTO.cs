@@ -12,7 +12,7 @@ namespace Talabat.APIS.DTOs
         [Required]
         public string PhoneNumber { set; get; }
         [Required]
-        [RegularExpression(@"^(?=.[A-Za-z])(?=.\d)(?=.[@$!%#?&])[A-Za-z\d@$!%*#?&]{8,}$", ErrorMessage ="Invalid Password")]
+       // [RegularExpression(@"^(?=.[A-Za-z])(?=.\d)(?=.[@$!%#?&])[A-Za-z\d@$!%*#?&]{8,}$", ErrorMessage ="Invalid Password")]
         public string Password { set; get; }
     }
 }

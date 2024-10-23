@@ -57,7 +57,6 @@ namespace Talabat.APIS
              var app = builder.Build();
 
             using var scop = app.Services.CreateScope();
-
             var Services = scop.ServiceProvider;
             var _dbcontext = Services.GetRequiredService<StoreContext>(); // Explicitly StoreContext
             var _IdentityDbContext = Services.GetRequiredService<AppIdentityDbContext>(); // Explicitly AppIdentityDbContext
