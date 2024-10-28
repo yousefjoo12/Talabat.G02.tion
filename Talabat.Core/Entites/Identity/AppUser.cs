@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Talabat.Core.Entites.Identity
 {
-    public class AppUser:IdentityUser
-    { 
+    public class AppUser : IdentityUser
+    {
         public string DisplayName { set; get; }
-        public Address Address { set; get; }
+        public AddressI Address { set; get; }
     }
 }

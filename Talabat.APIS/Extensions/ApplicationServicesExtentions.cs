@@ -37,6 +37,8 @@ namespace Talabat.APIS.Extensions
 
             services.AddScoped(typeof(IBasketReposeitory), typeof(BasketReposeitory));
 
+            services.AddScoped(typeof(IAuthService), typeof(AuthService));
+
 
             return services;
         }

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Azure.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Talabat.APIS.DTOs;
@@ -30,6 +32,7 @@ namespace Talabat.APIS.Controllers
             _productcategory = productcategory;
             _mapper = mapper;
         }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<ProductsDTO>>> GetProductsAsync([FromQuery] ProductsSpecParams specParams)
         {
@@ -40,7 +43,7 @@ namespace Talabat.APIS.Controllers
 
             var count = await _repository.GetCountAsync(countspec);
 
-            return Ok(new Pagination<ProductsDTO>(specParams.PageSize,specParams.PageIndex, count, data));
+            return Ok(new Pagination<ProductsDTO>(specParams.PageSize, specParams.PageIndex, count, data));
         }
 
         [ProducesResponseType(typeof(ProductsDTO), StatusCodes.Status200OK)]
