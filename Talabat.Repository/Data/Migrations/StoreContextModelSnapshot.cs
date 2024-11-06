@@ -141,7 +141,7 @@ namespace Talabat.Repository.Data.Migrations
                     b.Property<DateTimeOffset>("OrderDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("PaymentIntenId")
+                    b.Property<string?>("PaymentIntenId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

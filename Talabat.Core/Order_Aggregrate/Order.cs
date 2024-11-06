@@ -32,7 +32,7 @@ namespace Talabat.Core.Order_Aggregrate
         public decimal SubTotal { get; set; } // OrderItem * Quantity
         public decimal GetTotal()  
             => SubTotal* DeliveryMethod.Cost;
-         public string PaymentIntenId { get; set; } = string.Empty;
+         public string? PaymentIntenId { get; set; } = string.Empty;
 
     }
 }

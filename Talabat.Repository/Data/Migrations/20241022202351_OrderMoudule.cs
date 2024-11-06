@@ -41,9 +41,9 @@ namespace Talabat.Repository.Data.Migrations
                     ShippingAddress_City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShippingAddress_Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShippingAddress_Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DeliveryMethodId = table.Column<int>(type: "int", nullable: false),
+                    DeliveryMethodId = table.Column<int?>(type: "int", nullable: true),
                     SubTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentIntenId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PaymentIntenId = table.Column<string?>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
